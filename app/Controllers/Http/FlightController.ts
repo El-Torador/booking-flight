@@ -6,9 +6,7 @@ import FlightService from 'App/Services/FlightService'
 export default class FlightController {
   constructor(private flightService: FlightService) {}
 
-  public async getAll({ request }: HttpContextContract) {
-    console.log(request.headers())
-
+  public async getAll() {
     return this.flightService.getFlights()
   }
 }
