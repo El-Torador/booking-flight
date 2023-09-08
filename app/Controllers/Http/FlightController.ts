@@ -16,9 +16,17 @@ export default class FlightController {
     if (!id) return response.badRequest()
 
     const flight = this.flightService.getFlight(id)
+
     if (!flight) return response.notFound()
+
     const restPlaces = await Redis.get(flight.id)
+
     if (!restPlaces) return response.ok(flight.places)
+
     return response.ok(+restPlaces)
+  }
+
+  public async getCostPerLuggages() {
+    return this.flightService.getCostPerLuggages()
   }
 }

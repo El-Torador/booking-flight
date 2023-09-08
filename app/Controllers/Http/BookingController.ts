@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { inject } from '@adonisjs/fold'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
@@ -16,6 +17,8 @@ export default class BookingController {
 
   public async store({ request, response }: HttpContextContract) {
     const booking = (await request.validate(BookingValidator)) as unknown as Omit<BookingDTO, 'id'>
+    if (DateTime.now().toMillis() <= booking.date_departiture) return response.badRequest()
+
     const isFlight = this.flightService.getFlight(booking.flight_id)
 
     if (!isFlight) return response.notFound({ message: "Flight doesn't exist." })

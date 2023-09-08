@@ -29,6 +29,7 @@ Route.get('health', async ({ response }) => {
 
 Route.group(() => {
   Route.get('/flight', 'FlightController.getAll')
+  Route.get('/flight/costLuggage', 'FlightController.getCostPerLuggages')
   Route.get('/flight/:id/getRestPlace', 'FlightController.getCurrentPlaceFlight')
   Route.post('/booking', 'BookingController.store')
   Route.get('/currency', 'CurrencyController.index')

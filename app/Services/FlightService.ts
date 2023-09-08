@@ -9,6 +9,10 @@ class FlightService {
   public getFlight(id: string): FlightDTO | undefined {
     return FlightEntity.getOne(id)
   }
+
+  public getCostPerLuggages(): number {
+    return FlightEntity.getCoast()
+  }
 }
 
 export default FlightService

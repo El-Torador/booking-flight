@@ -1,5 +1,5 @@
 import { FlightDTO } from 'App/DTO/Flight'
-import { FlightData } from 'App/data'
+import { COST_PER_LUGGAGES, FlightData } from 'App/data'
 
 class FlightEntity {
   private static flights: FlightDTO[] = [...FlightData]
@@ -10,6 +10,10 @@ class FlightEntity {
 
   public static getOne(id: string): FlightDTO | undefined {
     return this.flights.find((f) => f.id === id)
+  }
+
+  public static getCoast(): number {
+    return COST_PER_LUGGAGES
   }
 }
 
