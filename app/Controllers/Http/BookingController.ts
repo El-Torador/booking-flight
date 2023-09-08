@@ -17,7 +17,13 @@ export default class BookingController {
 
   public async store({ request, response }: HttpContextContract) {
     const booking = (await request.validate(BookingValidator)) as unknown as Omit<BookingDTO, 'id'>
-    if (DateTime.now().toMillis() <= booking.date_departiture) return response.badRequest()
+    console.log(
+      booking.date_departiture,
+      DateTime.fromMillis(booking.date_departiture).diffNow().toMillis()
+    )
+
+    if (DateTime.fromMillis(booking.date_departiture).diffNow().toMillis() <= 0)
+      return response.badRequest()
 
     const isFlight = this.flightService.getFlight(booking.flight_id)
 
