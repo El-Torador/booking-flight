@@ -3,4 +3,5 @@ export interface FlightDTO {
   airport_departiture: string
   airport_destination: string
   price: number
+  places: number
 }

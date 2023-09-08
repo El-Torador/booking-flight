@@ -57,9 +57,11 @@
   "dependencies": {
     "@adonisjs/core": "^5.8.0",
     "@adonisjs/fold": "^8.2.0",
+    "@adonisjs/redis": "^7.3.3",
     "@adonisjs/repl": "^3.1.0",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "superagent-xml2jsparser": "^0.1.1"
   }
 }

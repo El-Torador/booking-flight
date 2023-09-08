@@ -25,6 +25,7 @@ export default class BookingValidator {
    */
   public schema = schema.create({
     flight_id: schema.string(),
+    date_departiture: schema.number(),
   })
 
   /**
