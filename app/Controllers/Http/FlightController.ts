@@ -10,20 +10,26 @@ export default class FlightController {
   public async getAll() {
     return this.flightService.getFlights()
   }
-  public async getCurrentPlaceFlight({ params, response }: HttpContextContract) {
+
+  public async getCurrentSeatsFlight({ params, response }: HttpContextContract) {
     const id = params.id as string
 
     if (!id) return response.badRequest()
 
-    const flight = this.flightService.getFlight(id)
+    const flight = await this.flightService.getFlight(id)
 
     if (!flight) return response.notFound()
 
-    const restPlaces = await Redis.get(flight.id)
+    const restSeats = await Redis.get(flight.id)
 
-    if (!restPlaces) return response.ok(flight.places)
+    if (!restSeats) return response.ok(flight.seats)
 
-    return response.ok(+restPlaces)
+    return response.ok(+restSeats)
+  }
+
+  public async show({ params }: HttpContextContract) {
+    const id = params.id as string
+    return this.flightService.getFlight(id)
   }
 
   public async getCostPerLuggages() {

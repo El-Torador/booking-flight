@@ -1,8 +1,11 @@
-export interface FlightDTO {
+import { AirportDTO } from './Airport'
+export interface FlightDTO<T extends string | AirportDTO> {
   id: string
-  airport_departiture: string
-  airport_destination: string
+  airport_departiture: T
+  airport_destination: T
   price: number
-  places: number
-  luggages: number
+  seats: number
+  luggages_limit: number
+  stopover: number[]
+  airline: string
 }
