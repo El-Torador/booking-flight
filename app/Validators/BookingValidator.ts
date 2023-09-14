@@ -1,4 +1,4 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class BookingValidator {
@@ -25,7 +25,10 @@ export default class BookingValidator {
    */
   public schema = schema.create({
     flight_id: schema.string(),
-    date_departiture: schema.number(),
+    date_departiture: schema.number([rules.unsigned()]),
+    quantity: schema.number([rules.unsigned()]),
+    currency: schema.string.optional(),
+    luggages: schema.number([rules.unsigned()]),
   })
 
   /**
