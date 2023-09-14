@@ -29,7 +29,8 @@
       "@adonisjs/core",
       "@adonisjs/repl",
       "@japa/preset-adonis/build/adonis-typings",
-      "@adonisjs/redis"
+      "@adonisjs/redis",
+      "@adonisjs/i18n"
     ]
   }
 }
