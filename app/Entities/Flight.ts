@@ -1,19 +1,25 @@
+import Env from '@ioc:Adonis/Core/Env'
+import superagent from 'superagent'
 import { FlightDTO } from 'App/DTO/Flight'
-import { COST_PER_LUGGAGES, FlightData } from 'App/data'
 
 class FlightEntity {
-  private static flights: FlightDTO[] = [...FlightData]
+  private static db_uri: string = Env.get('DB_URI')
+  private static __tablename__: string = 'flights'
 
-  public static getAll(): FlightDTO[] {
-    return this.flights
+  public static async getAll(page: number, limit: number): Promise<FlightDTO<string>[]> {
+    const response = await superagent
+      .get(`${this.db_uri}/${this.__tablename__}?_page=${page}&_limit=${limit}`)
+      .accept('application/json')
+
+    // const totalCount = response.headers['x-total-count']
+    return response.body
   }
 
-  public static getOne(id: string): FlightDTO | undefined {
-    return this.flights.find((f) => f.id === id)
-  }
+  public static async getOne(id: string): Promise<FlightDTO<string> | null> {
+    const response = await superagent.get(`${this.db_uri}/${this.__tablename__}/${id}`)
 
-  public static getCoast(): number {
-    return COST_PER_LUGGAGES
+    if (response.statusCode === 404) return null
+    return response.body
   }
 }
 
