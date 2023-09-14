@@ -101,6 +101,8 @@ export default class BookingController {
 
   public async create({ request, response }: HttpContextContract) {
     const booking = await request.validate(BookingValidator)
+    if (booking.currency && !isNaN(+booking.currency))
+      return response.badRequest({ message: 'Bad currency' })
     const SEATS_NOT_ENOUGH = 'The rest of seats of this flight cannot meet your quantity.'
 
     if (booking.quantity < 1)

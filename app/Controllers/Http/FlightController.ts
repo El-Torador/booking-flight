@@ -7,7 +7,7 @@ import Redis from '@ioc:Adonis/Addons/Redis'
 export default class FlightController {
   constructor(private flightService: FlightService) {}
 
-  public async getAll() {
+  public async index() {
     return this.flightService.getFlights()
   }
 
