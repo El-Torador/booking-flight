@@ -26,4 +26,8 @@ export default Env.rules({
   REDIS_PORT: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.string.optional(),
   CURRENCY_API: Env.schema.string(),
+  DB_URI: Env.schema.string(),
+  DISCOUNT_QTE_TICKET_COND: Env.schema.number(),
+  DISCOUNT_QTE_TICKET_PERCENT: Env.schema.number(),
+  COST_PER_MORE_LUGGAGES: Env.schema.number(),
 })
