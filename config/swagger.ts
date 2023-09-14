@@ -1,6 +1,6 @@
 export default {
   path: __dirname + '../',
-  title: 'Booking Flight API by CAPE COMPANY',
+  title: 'Booking Flight API by K\u2074 COMPANY',
   description: 'Designed to book and sale our own fligh tickets.',
   version: '1.0.0',
   tagIndex: 3,
