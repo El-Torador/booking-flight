@@ -25,23 +25,19 @@ export default class BookingController {
 
   public async index({}: HttpContextContract) {
     const bookings = await this.bookingService.getBookings()
-    const currenciesMap = await this.currencyService.getCurrenciesMapper()
 
     return bookings.map((booking) => ({
       ...booking,
       flight: {
         ...booking.flight,
-        price: formatCurrency(
-          booking.flight!.price,
-          this.currencyService.searchCurrency(currenciesMap, booking.currency).currency
-        ),
+        price: formatCurrency(booking.flight!.price * booking.currency_rate!, booking.currency),
       },
       date_departiture: formatDate(booking.date_departiture),
       total_luggages_price: formatCurrency(
         this.bookingService.getTotalLuggagePrice(
           JSON.parse(JSON.stringify(booking)) as BookingDTO<string>,
           booking.flight!.luggages_limit,
-          this.currencyService.searchCurrency(currenciesMap, booking.currency).rate
+          booking.currency_rate
         ),
         booking.currency
       ),
@@ -49,7 +45,7 @@ export default class BookingController {
         this.bookingService.getTotalPrice(
           JSON.parse(JSON.stringify(booking)) as BookingDTO<string>,
           booking.flight!,
-          this.currencyService.searchCurrency(currenciesMap, booking.currency).rate
+          booking.currency_rate
         ),
         booking.currency
       ),
@@ -78,7 +74,11 @@ export default class BookingController {
     if (curr && !currenciesMap.has(curr))
       return response.badRequest({ message: `K\u2074 API does not support ${curr} currency.` })
 
-    const currency = this.currencyService.searchCurrency(currenciesMap, curr ?? data.currency)
+    const currency = curr
+      ? this.currencyService.searchCurrency(currenciesMap, curr)
+      : data.currency_rate
+      ? { currency: data.currency, rate: data.currency_rate }
+      : this.currencyService.getDefaultCurrency()
 
     return {
       ...data,
@@ -88,6 +88,7 @@ export default class BookingController {
       },
       date_departiture: formatDate(data.date_departiture),
       currency: currency.currency,
+      currency_rate: currency.rate,
       total_luggages_price: formatCurrency(
         this.bookingService.getTotalLuggagePrice(data, flight.luggages_limit, currency.rate),
         currency.currency
@@ -145,11 +146,15 @@ export default class BookingController {
       discountCond = this.discount_qte_ticket_cond
     }
 
+    const currencyMap = await this.currencyService.getCurrenciesMapper()
+    const currency = booking.currency ?? this.currencyService.getDefaultCurrency().currency
+
     await Redis.set(
       uuid,
       JSON.stringify({
         ...booking,
-        currency: booking.currency ?? this.currencyService.getDefaultCurrency().currency,
+        currency,
+        currency_rate: this.currencyService.searchCurrency(currencyMap, currency).rate,
         discount,
         discount_cond: discountCond,
         cost_per_more_luggages: costPerMoreLuggages,

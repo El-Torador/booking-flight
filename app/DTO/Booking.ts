@@ -11,6 +11,7 @@ export interface BookingDTO<T extends string | AirportDTO> {
   quantity: number
   discount?: number
   discount_cond?: number
+  currency_rate: number
   currency: string
   cost_per_more_luggages?: number
   luggages: number
