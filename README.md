@@ -70,7 +70,7 @@ Rassurez-vous d'avoir lancer redis sur votre machine. Vous pouvez le faire via D
 3. Lancer le serveur de BD Json (json-server)
 
 ```bash
-  npx json-server app/data/nom_de_votre_fichier_db.json --watch
+  npx json-server data/db.json --watch
 ```
 
 Pour modifier le port par défaut (3000), vous pouver rajouter le drapeau: **_--port numero_port_**.
