@@ -34,7 +34,7 @@ Route.get('/', async () => {
     ready: Application.isReady,
     healthy: (await HealthCheck.getReport()).healthy,
     docs: '/docs',
-    repo: 'https://github.com/El-Torador/booking-flight/api-front',
+    repo: 'https://github.com/El-Torador/booking-flight/tree/main/api-front',
     licence: 'OPEN-SOURCE',
   }
 })

@@ -31,7 +31,7 @@ Route.get('/', async () => {
     environment: `${Application.nodeEnvironment}`,
     ready: Application.isReady,
     healthy: (await HealthCheck.getReport()).healthy,
-    repo: 'https://github.com/El-Torador/booking-flight/microservices/bookings',
+    repo: 'https://github.com/El-Torador/booking-flight/tree/main/microservices/bookings',
     licence: 'OPEN-SOURCE',
   }
 })
