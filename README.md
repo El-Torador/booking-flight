@@ -1,4 +1,4 @@
-# BOOKING-FLIGHT API ⚙️
+# BOOKING-FLIGHT API 🎫
 
 API de vente de vol pour la companie K<sup>4</sup> Airline.
 
@@ -16,6 +16,12 @@ API de vente de vol pour la companie K<sup>4</sup> Airline.
 - [Redis](https://redis.io)
 - [Docker](https://www.docker.com)
 
+### RESSOURCES ⚙️
+
+- Flights Engine: Getting flights airline company
+- Bookings Engine: booking flights airline company
+- API-FRONT: Gestion et sérialisation des requêtes entre les applications front-end et les microservices de K<sup>4</sup>.
+- EXTERNAL API: Gestion et sérialisation des requêtes entre les APIs externes et les microservices de K<sup>4</sup>.
 ## Getting started 🚦
 
 ### Intallation 🦅
@@ -33,7 +39,7 @@ Si la version de node ne s'affiche pas, je vous invite à la télécharger [ici]
 
 2.  Dépendances
 
-Pour installer les dépendances du projet, tappez cette commande dans votre terminal à la racine du projet:
+Pour installer les dépendances du projet, tappez cette commande dans votre terminal à la racine de chaque ressource:
 
 ```bash
   yarn
@@ -49,9 +55,9 @@ Rassurez-vous d'avoir lancer redis sur votre machine. Vous pouvez le faire via D
 
 1.  Création de la base de données
 
--Créer un fichier JSON dans le dossier **/app/data** et nommer le comme vous le voulez ou utiliser celui défini par défaut.
+-Créer un fichier JSON dans le dossier **/data** et nommer le comme vous le voulez ou utiliser celui défini par défaut.
 
-- Seed des données: Vous pouvez vous inspirer des données dans le fichier par défaut pour définir les données par défaut dans votre base de données comme les flights, les Airports et les Airlines. Ces contrats sont définis dans **/app/DTO**.
+- Seed des données: Vous pouvez vous inspirer des données dans le fichier par défaut pour définir les données par défaut dans votre base de données comme les flights, les Airports et les Airlines. Chaque microservice et API possède ses contrats définis dans **/app/DTO**.
 
 2.  Variables d'environnements
 
@@ -72,7 +78,7 @@ Pour modifier le port par défaut (3000), vous pouver rajouter le drapeau: **_--
 Pour plus d'information, cf [docs](https://www.npmjs.com/package/json-server).
 
 ### Start App Server 🛜
-
+Lancer chacune des ressources.
 ```bash
 #To run development server
   yarn dev
@@ -95,10 +101,69 @@ Pour plus d'information, cf [docs](https://www.npmjs.com/package/json-server).
   npm run start
 ```
 
-### DOCUMENTATION
+### DOCUMENTATION 📖
 
-- Accéder à l'ensemble des routes de l'API: **/docs**
+Seules les ressources API-FRONT et External API ont une documentation swagger accessible via **/docs**.
 
+### APIs KEYS 🔑
+
+Chaque requête à une ressource K<sup>4</sup> necessite OBLIGATOIREMENT une clé API. <br/>
+Ex:
+```sh
+  curl --request GET \
+    --url http://127.0.0.1:8080/api/v1/flights \
+    --header 'K4-API-KEY: __YOUR_API_KEY__'
+```
+
+### RESSOURCES INFOS ROUTES 🛣️
+Chaque ressource K<sup>4</sup> expose des routes pour vérifier leur status et leur santé.
+
+**N.B:** Pas besoin de fournir la clé API
+
+- Sur **/**:
+```sh
+  curl --request GET \
+    --url http://127.0.0.1:8080
+
+  #==> Résultat
+  #   {
+  #   title: string,
+  #   version: string,
+  #   made_by: string,
+  #   technology: string,
+  #   environment: string,
+  #   ready: boolean,
+  #   healthy: boolean, # status of healthy ressource
+  #   docs: string, # Display just for API FRONT and EXTERNAL API
+  #   repo: string,
+  #   licence: string,
+  # }
+```
+- Sur **/healtCheck**:
+```sh
+  curl --request GET \
+    --url http://127.0.0.1:8080/healtCheck
+
+  #==> Résultat: status = 200 or 400
+  #   {
+	# healthy: boolean,
+	# report: {
+	# 	env: {
+	# 		displayName: string,
+	# 		health: {
+	# 			healthy: boolean
+	# 		}
+	# 	},
+	# 	appKey: {
+	# 		displayName: string,
+	# 		health: {
+	# 			healthy: boolean
+	# 		},
+  #    ...more infos 
+	# 	}
+	# }
+}
+```
 ### CLI TIPS 😎
 
 - Lancer le REPL

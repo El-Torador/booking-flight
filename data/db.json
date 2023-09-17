@@ -1,0 +1,120 @@
+{
+  "airlines": [
+    {
+      "id": "Airl001",
+      "code": "K\u2074",
+      "name": "K\u2074 Airline"
+    }
+  ],
+  "flights": [
+    {
+      "id": "VL001",
+      "airport_departiture": "Airp001",
+      "airport_destination": "Airp002",
+      "price": 1000.56,
+      "seats": 1000,
+      "luggages_limit": 2,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "VL002",
+      "airport_departiture": "Airp001",
+      "airport_destination": "Airp003",
+      "price": 2000.99,
+      "seats": 500,
+      "luggages_limit": 4,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "VL003",
+      "airport_departiture": "Airp002",
+      "airport_destination": "Airp003",
+      "price": 5000.9,
+      "seats": 700,
+      "luggages_limit": 10,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "VL004",
+      "airport_departiture": "Airp003",
+      "airport_destination": "Airp002",
+      "price": 500,
+      "seats": 800,
+      "luggages_limit": 1,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "VL005",
+      "airport_departiture": "Airp002",
+      "airport_destination": "Airp001",
+      "price": 3000.5,
+      "seats": 900,
+      "luggages_limit": 6,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "VL006",
+      "airport_departiture": "Airp003",
+      "airport_destination": "Airp001",
+      "price": 10000.5,
+      "seats": 100,
+      "luggages_limit": 20,
+      "stopover": [],
+      "airline": "K\u2074"
+    },
+    {
+      "id": "godifn4oib2r",
+      "airport_departiture": "Airp003",
+      "airport_destination": "Airp001",
+      "price": 10000.5,
+      "seats": 100,
+      "luggages_limit": 20,
+      "stopover": [],
+      "airline": "K\u2074"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "clmnrhgrw000335vt7m1428qa",
+      "flight_id": "VL003",
+      "date_departiture": 1696958687795,
+      "quantity": 1,
+      "email_guest": "torador7@gmail.com",
+      "luggages": 2,
+      "currency": "EUR",
+      "currency_rate": 1,
+      "discount": 0,
+      "discount_cond": 0,
+      "cost_per_more_luggages": 0
+    }
+  ],
+  "airports": [
+    {
+      "id": "Airp001",
+      "code": "CDG",
+      "name": "Charles de Gaulles"
+    },
+    {
+      "id": "Airp002",
+      "code": "JFK",
+      "name": "John F. Kennedy"
+    },
+    {
+      "id": "Airp003",
+      "code": "DTW",
+      "name": "Detroit Metropolitan Wayne"
+    },
+    {
+      "id": "Airp004",
+      "code": "DTW",
+      "name": "Detroit Metropolitan Wayne"
+    }
+  ],
+  "passengers": [],
+  "discounts": []
+}
