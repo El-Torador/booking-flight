@@ -25,7 +25,7 @@ class BookingService {
   ): Promise<BookingDTO<AirportDTO>[]> {
     const bookings = await BookingEntity.getAll(page, limit, email)
     const flights = await this.flightService.getFlights()
-
+    //TODO: GET BOOKINGS FROM OTHER AIRLINE
     return bookings.map((booking) => ({
       ...booking,
       flight: flights.find((f) => f.id === booking.flight_id)!,
