@@ -14,6 +14,7 @@ class FlightService {
   public async getFlights(page: number = 0, limit: number = 0): Promise<FlightDTO<AirportDTO>[]> {
     const flights = await FlightEntity.getAll(page, limit)
     const airports = await this.airportService.getAll()
+    //TODO: GET FLIGHTS FROM OTHERS AIRLINES
 
     return flights.map((flight) => ({
       ...flight,

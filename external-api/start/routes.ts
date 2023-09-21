@@ -18,8 +18,67 @@
 |
 */
 
+import Application from '@ioc:Adonis/Core/Application'
+import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import Route from '@ioc:Adonis/Core/Route'
+import swagger from 'Config/swagger'
+import AutoSwagger from 'adonis-autoswagger'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return {
+    title: `WELCOME TO ${Application.appName.toUpperCase()}`,
+    version: `${Application.version?.toString()}`,
+    made_by: 'K\u2074 AIRLINE COMPANY.',
+    technology: `AdonisJS ${Application.adonisVersion?.toString()}`,
+    environment: `${Application.nodeEnvironment}`,
+    ready: Application.isReady,
+    healthy: (await HealthCheck.getReport()).healthy,
+    docs: '/docs',
+    repo: 'https://github.com/El-Torador/booking-flight/tree/main/external-api',
+    licence: 'OPEN-SOURCE',
+  }
 })
+
+Route.get('/healtCheck', async ({ response }) => {
+  const report = await HealthCheck.getReport()
+
+  return report.healthy ? response.ok(report) : response.badRequest(report)
+})
+
+// returns swagger in YAML
+Route.get('/swagger', async () => {
+  return AutoSwagger.docs(Route.toJSON(), {
+    ...swagger,
+    snakeCase: false,
+  })
+})
+
+// Renders Swagger-UI and passes YAML-output of /swagger
+Route.get('/docs', async () => {
+  return AutoSwagger.ui('/swagger')
+})
+
+Route.group(() => {
+  Route.group(() => {
+    Route.get('/', 'FlightController.index')
+    Route.get('/costLuggage', 'FlightController.getCostPerLuggages')
+    Route.get('/:id/getRestPlace', 'FlightController.getCurrentSeatsFlight')
+    Route.get('/:id', 'FlightController.show')
+  }).prefix('flights')
+
+  Route.group(() => {
+    Route.get('/', 'BookingController.index')
+    Route.post('/', 'BookingController.create')
+    Route.get('/:id', 'BookingController.show')
+    Route.get('/:id/confirm', 'BookingController.store')
+    Route.delete('/:id/cancel', 'BookingController.undo')
+  }).prefix('bookings')
+
+  Route.group(() => {
+    Route.get('/', 'CurrencyController.index')
+  }).prefix('currencies')
+})
+  .prefix('v1')
+  .prefix('api')
+  .middleware('authorized')
+  .middleware('logrequest')

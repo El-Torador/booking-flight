@@ -21,4 +21,8 @@ export default Env.rules({
   APP_NAME: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+  API_FLIGHT: Env.schema.string(),
+  API_KEY_FLIGHT: Env.schema.string(),
+  API_CURRENCY: Env.schema.string(),
+  API_BOOKING: Env.schema.string(),
 })

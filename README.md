@@ -18,10 +18,10 @@ API de vente de vol pour la companie K<sup>4</sup> Airline.
 
 ### RESSOURCES ⚙️
 
-- Flights Engine: Getting flights airline company
-- Bookings Engine: booking flights airline company
-- API-FRONT: Gestion et sérialisation des requêtes entre les applications front-end et les microservices de K<sup>4</sup>.
-- EXTERNAL API: Gestion et sérialisation des requêtes entre les APIs externes et les microservices de K<sup>4</sup>.
+- [Flights Engine](https://github.com/El-Torador/booking-flight/tree/main/microservices/flights#readme): Getting flights airline company
+- [Bookings Engine](https://github.com/El-Torador/booking-flight/tree/main/microservices/bookings#readme): booking flights airline company
+- [API-FRONT](https://github.com/El-Torador/booking-flight/tree/main/api-front#readme): Gestion et sérialisation des requêtes entre les applications front-end et les microservices de K<sup>4</sup>.
+- [EXTERNAL API](https://github.com/El-Torador/booking-flight/tree/main/external-api#readme): Gestion et sérialisation des requêtes entre les APIs externes et les microservices de K<sup>4</sup>.
 ## Getting started 🚦
 
 ### Intallation 🦅
@@ -70,13 +70,60 @@ Rassurez-vous d'avoir lancer redis sur votre machine. Vous pouvez le faire via D
 3. Lancer le serveur de BD Json (json-server)
 
 ```bash
-  npx json-server data/db.json --watch
+  npx json-server data/db.json --watch --port 3005
 ```
 
 Pour modifier le port par défaut (3000), vous pouver rajouter le drapeau: **_--port numero_port_**.
 
 Pour plus d'information, cf [docs](https://www.npmjs.com/package/json-server).
 
+### CONTRACTS MODELS (DTO)
+```ts
+  export interface Airline {
+    id: string
+    code: string
+    name: string
+  }
+
+  export interface AirportDTO {
+    id: string
+    code: string
+    name: string
+  }
+
+  export interface BookingDTO<T extends string | AirportDTO> {
+    id: string
+    flight?: FlightDTO<T>
+    flight_id: string
+    date_departiture: number
+    quantity: number
+    discount?: number
+    discount_cond?: number
+    currency_rate?: number
+    email_guest: string
+    currency: string
+    cost_per_more_luggages?: number
+    luggages: number
+    passengers?: Passenger[]
+  }
+
+  export interface FlightDTO<T extends string | AirportDTO> {
+    id: string
+    airport_departiture: T
+    airport_destination: T
+    price: number
+    seats: number
+    luggages_limit: number
+    stopover: number[]
+    airline: string | Airline
+  }
+
+  export interface Passenger {
+    fistname: string
+    lastname: string
+    birthdate: number
+  }
+```
 ### Start App Server 🛜
 Lancer chacune des ressources.
 ```bash
