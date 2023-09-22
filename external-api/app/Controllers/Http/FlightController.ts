@@ -30,4 +30,13 @@ export default class FlightController {
   public async getCostPerLuggages() {
     return this.flightService.getCostPerLuggages()
   }
+
+  public async getExternalFlights() {
+    return this.flightService.getExternalFlights()
+  }
+
+  public async getExternalFlight({ params }) {
+    const id = params.id as string
+    return this.flightService.getExternalFlight(id)
+  }
 }

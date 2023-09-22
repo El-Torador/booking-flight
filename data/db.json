@@ -2,8 +2,8 @@
   "airlines": [
     {
       "id": "Airl001",
-      "code": "K\u2074",
-      "name": "K\u2074 Airline"
+      "code": "K⁴",
+      "name": "K⁴ Airline"
     }
   ],
   "flights": [
@@ -15,7 +15,7 @@
       "seats": 1000,
       "luggages_limit": 2,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "VL002",
@@ -25,7 +25,7 @@
       "seats": 500,
       "luggages_limit": 4,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "VL003",
@@ -35,7 +35,7 @@
       "seats": 700,
       "luggages_limit": 10,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "VL004",
@@ -45,7 +45,7 @@
       "seats": 800,
       "luggages_limit": 1,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "VL005",
@@ -55,7 +55,7 @@
       "seats": 900,
       "luggages_limit": 6,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "VL006",
@@ -65,7 +65,7 @@
       "seats": 100,
       "luggages_limit": 20,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     },
     {
       "id": "godifn4oib2r",
@@ -75,7 +75,7 @@
       "seats": 100,
       "luggages_limit": 20,
       "stopover": [],
-      "airline": "K\u2074"
+      "airline": "K⁴"
     }
   ],
   "bookings": [

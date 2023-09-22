@@ -8,11 +8,13 @@ import { AirportDTO } from 'App/DTO/Airport'
 class FlightService {
   private flight_api: string = Env.get('API_FLIGHT')
   private API_KEY: string = Env.get('API_KEY_FLIGHT')
+  private K4_API_KEY: string = 'K4-API-KEY'
+
   public async getFlights(page: number = 0, limit: number = 0): Promise<FlightDTO<AirportDTO>[]> {
     const response = await superagent
       .get(`${this.flight_api}?page=${page}&limit=${limit}`)
       .set({
-        'K4-API-KEY': this.API_KEY,
+        [this.K4_API_KEY]: this.API_KEY,
       })
       .accept('application/json')
 
@@ -23,21 +25,21 @@ class FlightService {
     id: FlightDTO<string | AirportDTO>['id']
   ): Promise<FlightDTO<AirportDTO> | null> {
     const resp = await superagent.get(`${this.flight_api}/${id}`).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
     return resp.body
   }
 
   public async getCostPerLuggages(): Promise<number> {
     const response = await superagent.get(`${this.flight_api}/costLuggage`).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
     return +response.text
   }
 
   public async getRestSeatsFlight(id: FlightDTO<string | AirportDTO>['id']): Promise<number> {
     const resp = await superagent.get(`${this.flight_api}/${id}/getRestPlace`).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
 
     return +resp.text

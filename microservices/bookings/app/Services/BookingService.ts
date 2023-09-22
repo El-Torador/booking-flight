@@ -1,4 +1,5 @@
 import { inject } from '@adonisjs/fold'
+import superagent from 'superagent'
 import { AirportDTO } from 'App/DTO/Airport'
 import { BookingDTO } from 'App/DTO/Booking'
 import BookingEntity from 'App/Entities/Booking'
@@ -9,6 +10,10 @@ import { formatCurrency, formatDate } from 'App/utils'
 
 @inject()
 class BookingService {
+  private API_EXTERNAL: string
+  private API_KEY: string
+  private K4_API_KEY: string = 'K4-API-KEY'
+
   constructor(
     private flightService: FlightService,
     private currencyService: CurrencyService
@@ -46,6 +51,14 @@ class BookingService {
 
   public async removeBooking(id: string): Promise<boolean> {
     return BookingEntity.delete(id)
+  }
+
+  public async removeExternalBooking(id: string): Promise<boolean> {
+    const response = await superagent.delete(`${this.API_EXTERNAL}/bookings/${id}`).set({
+      [this.K4_API_KEY]: this.API_KEY
+    })
+
+    return response.ok
   }
 
   public getTotalLuggagePrice(

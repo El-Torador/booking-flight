@@ -72,6 +72,7 @@ Route.group(() => {
     Route.get('/:id', 'BookingController.show')
     Route.get('/:id/confirm', 'BookingController.store')
     Route.delete('/:id/cancel', 'BookingController.undo')
+    Route.post('/cancel', 'BookingController.cancel')
   }).prefix('bookings')
 
   Route.group(() => {

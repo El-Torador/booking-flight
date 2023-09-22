@@ -3,3 +3,8 @@ export interface Airline {
   code: string
   name: string
 }
+
+export enum AirlineCompanies {
+  'K⁴' = 'K⁴',
+  'BOBBY' = 'BOBBY'
+}

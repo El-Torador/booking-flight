@@ -1,3 +1,4 @@
+import Event from '@ioc:Adonis/Core/Event';
 import Env from '@ioc:Adonis/Core/Env'
 import { cuid } from '@ioc:Adonis/Core/Helpers'
 import { DateTime } from 'luxon'
@@ -11,6 +12,7 @@ import FlightService from 'App/Services/FlightService'
 import BookingValidator from 'App/Validators/BookingValidator'
 import CurrencyService from 'App/Services/CurrencyService'
 import { formatCurrency, formatDate } from 'App/utils'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 @inject()
 export default class BookingsController {
@@ -169,5 +171,24 @@ export default class BookingsController {
     await Redis.del(idOrder)
 
     return this.bookingService.save(JSON.parse(order) as BookingDTO<string>)
+  }
+
+  public async cancel({ request, response }: HttpContextContract) {
+    const bookingsToRemove = schema.create({
+      bookings: schema.array().members(
+        schema.object().members({
+          id: schema.string(),
+          airline: schema.string()
+        })
+      )
+    })
+
+    const paylaod = await request.validate({
+      schema: bookingsToRemove
+    })
+
+    await Event.emit('new:items', paylaod.bookings)
+
+    return response.noContent()
   }
 }

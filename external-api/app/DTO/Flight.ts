@@ -8,6 +8,7 @@ export interface FlightDTO<T extends string | AirportDTO> {
   price: number
   seats: number
   luggages_limit: number
-  stopover: number[]
+  remainingSeats? : number
+  stopover: string[]
   airline: string | Airline
 }
