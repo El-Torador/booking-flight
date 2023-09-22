@@ -25,4 +25,6 @@ export default Env.rules({
   API_KEY_FLIGHT: Env.schema.string(),
   API_CURRENCY: Env.schema.string(),
   API_BOOKING: Env.schema.string(),
+  TOKEN_EXTERNAL_FLIGHT_API: Env.schema.string(),
+  EXTERNAL_FLIGHT_API: Env.schema.string()
 })

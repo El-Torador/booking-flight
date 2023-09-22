@@ -44,7 +44,7 @@ class BookingService {
     }`
 
     const response = await superagent.get(endpoint).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
     return response.body
   }
@@ -56,7 +56,7 @@ class BookingService {
     const endpoint = `${this.booking_api}/${id}${qs?.currency ? `?currency=${qs.currency}` : ''}`
 
     const resp = await superagent.get(endpoint).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
 
     return resp.body
@@ -64,9 +64,21 @@ class BookingService {
 
   public async removeBooking(id: BookingDTO<string | AirportDTO>['id']): Promise<boolean> {
     const resp = await superagent.delete(`${this.booking_api}/${id}`).set({
-      'K4-API-KEY': this.API_KEY,
+      [this.K4_API_KEY]: this.API_KEY,
     })
     return !!resp.text
+  }
+
+  public async removeBookings(bookings: {id: string, airline: string}[]): Promise<boolean> {
+    const resp = await superagent.post(`${this.booking_api}/cancel`)
+    .send({
+      bookings
+    })
+    .set({
+      [this.K4_API_KEY]: this.API_KEY,
+    })
+    
+    return resp.ok
   }
 }
 

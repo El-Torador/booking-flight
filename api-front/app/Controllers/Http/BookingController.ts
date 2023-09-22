@@ -1,3 +1,4 @@
+import { schema } from '@ioc:Adonis/Core/Validator';
 import { inject } from '@adonisjs/fold'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { BookingDTO } from 'App/DTO/Booking'
@@ -37,5 +38,22 @@ export default class BookingController {
     const idOrder = params.id as BookingDTO<string>['id']
 
     return this.bookingService.persit(idOrder)
+  }
+
+  public async cancel({ request }: HttpContextContract) {
+    const bookingsToRemove = schema.create({
+      bookings: schema.array().members(
+        schema.object().members({
+          id: schema.string(),
+          airline: schema.string()
+        })
+      )
+    })
+
+    const paylaod = await request.validate({
+      schema: bookingsToRemove
+    })
+
+    return this.bookingService.removeBookings(paylaod.bookings)
   }
 }

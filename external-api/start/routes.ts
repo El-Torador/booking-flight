@@ -62,8 +62,11 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'FlightController.index')
     Route.get('/costLuggage', 'FlightController.getCostPerLuggages')
+    Route.get('/external', 'FlightController.getExternalFlight')
     Route.get('/:id/getRestPlace', 'FlightController.getCurrentSeatsFlight')
     Route.get('/:id', 'FlightController.show')
+    Route.get('/external', 'FlightController.getExternalFlights')
+    Route.get('/external/:id', 'FlightController.getExternalFlight')
   }).prefix('flights')
 
   Route.group(() => {

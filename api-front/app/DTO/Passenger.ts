@@ -1,5 +1,5 @@
 export interface Passenger {
-  fistname: string
+  firstname: string
   lastname: string
   birthdate: number
 }

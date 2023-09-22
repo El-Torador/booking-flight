@@ -46,6 +46,7 @@ Route.group(() => {
   Route.group(() => {
     Route.get('', 'BookingsController.index')
     Route.post('/', 'BookingsController.create')
+    Route.post('/cancel', 'BookingsController.cancel')
     Route.get('/:id', 'BookingsController.show')
     Route.get('/:id/confirm', 'BookingsController.store')
     Route.delete('/:id', 'BookingsController.undo')

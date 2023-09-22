@@ -32,9 +32,9 @@ export default class BookingValidator {
     luggages: schema.number([rules.unsigned()]),
     passengers: schema.array.optional().members(
       schema.object().members({
-        fistname: schema.string(),
+        firstname: schema.string(),
         lastname: schema.string(),
-        birthdate: schema.number(),
+        birthdate: schema.number.optional(),
       })
     ),
   })
