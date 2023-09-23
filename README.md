@@ -114,12 +114,12 @@ Pour plus d'information, cf [docs](https://www.npmjs.com/package/json-server).
     price: number
     seats: number
     luggages_limit: number
-    stopover: number[]
+    stopover: string[]
     airline: string | Airline
   }
 
   export interface Passenger {
-    fistname: string
+    firstname: string
     lastname: string
     birthdate: number
   }

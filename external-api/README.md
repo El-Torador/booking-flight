@@ -15,6 +15,7 @@
 ```sh
   PORT=8080
   HOST=0.0.0.0
+  AIRLINE=K⁴
   NODE_ENV=development
   APP_KEY=O2cv1Y1zMfMSBr_mmdq5Ktjz_46RV6pt
   DRIVE_DISK=local
@@ -23,6 +24,8 @@
   API_KEY_BOOKING=vZX_KcLjDnt2LBF1DI5NqGkHnEqxa0oE
   API_FLIGHT=http://localhost:3000/api/v1/flights
   API_KEY_FLIGHT=_5uUeOQVcPJ52Pwgp23UjyzDiq-kHEIo
+  TOKEN_EXTERNAL_FLIGHT_API=0F549EZR9Z04OTG
+  EXTERNAL_FLIGHT_API=http://10.8.110.182:3001/externCall ## Remplacer @ip et le port par les configs de votre environnement
 
 ```
 
