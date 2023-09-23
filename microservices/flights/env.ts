@@ -26,4 +26,6 @@ export default Env.rules({
   REDIS_PORT: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.string.optional(),
   DATA_STORE_API_KEY: Env.schema.string(),
+  EXTERNAL_API: Env.schema.string(),
+  EXTERNAL_API_KEY: Env.schema.string()
 })

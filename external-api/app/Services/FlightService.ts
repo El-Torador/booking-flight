@@ -25,6 +25,7 @@ class FlightService {
   private external_flight_api: string = Env.get('EXTERNAL_FLIGHT_API')
   private TOKEN_EXTERNAL_FLIGHT_API: string = Env.get("TOKEN_EXTERNAL_FLIGHT_API")
   private KEY_TOKEN: string = 'access-token'
+  private timeout: number = 5000
 
   private mappingKeysExternal = {
     'id': 'id',
@@ -56,11 +57,13 @@ class FlightService {
 
   public async getExternalFlights(): Promise<FlightDTO<string>[]>{
     try {
+      Logger.info('GETTING FLIGHTS FROM EXTERNAL API...')
       const response = await superagent.get(`${this.external_flight_api}/flight`).set({
         [this.KEY_TOKEN]: this.TOKEN_EXTERNAL_FLIGHT_API
-      })
+      }).timeout(this.timeout)
 
       const externalFlights = response.body as ExternalFlight[]
+      Logger.info('FLIGHTS FROM EXTERNAL API IS OK.')
 
       return externalFlights.map(externalFlight => this.serializeExternalFlight(externalFlight))
     } catch (error) {
@@ -71,12 +74,13 @@ class FlightService {
 
   public async getExternalFlight(id: string): Promise<FlightDTO<string> | null> {
     try {
+      Logger.info(`GETTING FLIGHT ${id} FROM EXTERNAL API...`)
       const response = await superagent.get(`${this.external_flight_api}/flight/id=${id}`).set({
         [this.KEY_TOKEN]: this.TOKEN_EXTERNAL_FLIGHT_API
-      })
+      }).timeout(this.timeout)
 
       const externalFlight = response.body as ExternalFlight
-      
+      Logger.info(`FLIGHT ${id} FROM EXTERNAL API IS OK.`)
       return this.serializeExternalFlight(externalFlight)
     } catch (error) {
       Logger.error(error)
